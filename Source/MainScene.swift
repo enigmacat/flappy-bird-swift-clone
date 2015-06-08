@@ -29,6 +29,8 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         self.spawnNewObstacle()
         self.spawnNewObstacle()
         
+        _scoreLabel.string = "0"
+        
     }
     
     override func update(delta: CCTime) {
