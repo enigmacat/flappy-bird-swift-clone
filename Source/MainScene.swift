@@ -1,6 +1,6 @@
 import Foundation
 
-class MainScene: CCNode {
+class MainScene: CCNode, CCPhysicsCollisionDelegate {
     var _scrollSpeed: CGFloat = 80
     var _hero: CCSprite!
     var _physicsNode: CCPhysicsNode!
@@ -11,15 +11,14 @@ class MainScene: CCNode {
     var obstacles: [CCNode] = []
     let firstObstaclePosition : CGFloat = 280
     let _distanceBetweenObstacles: CGFloat = 160
+    var _obstaclesLayer: CCNode!
     
     func didLoadFromCCB() {
         self.userInteractionEnabled = true
         grounds.append(_ground1)
         grounds.append(_ground2)
+        _physicsNode.collisionDelegate = self
         
-        self.spawnNewObstacle()
-        self.spawnNewObstacle()
-        self.spawnNewObstacle()
     }
     
     override func update(delta: CCTime) {
@@ -80,9 +79,15 @@ class MainScene: CCNode {
             prevObstaclePos = obstacles.last!.position.x
         }
         
-        let obstacle = CCBReader.load("Obstacle")
+        let obstacle = CCBReader.load("Obstacle") as! Obstacle
         obstacle.position = ccp(prevObstaclePos + _distanceBetweenObstacles, 0)
-        _physicsNode.addChild(obstacle)
+        obstacle.setupRandomPosition()
+        _obstaclesLayer.addChild(obstacle)
         obstacles.append(obstacle)
+    }
+    
+    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, hero nodeA: CCNode!, level nodeB: CCNode!) -> Bool {
+        NSLog("Todo: handle game over")
+        return true
     }
 }

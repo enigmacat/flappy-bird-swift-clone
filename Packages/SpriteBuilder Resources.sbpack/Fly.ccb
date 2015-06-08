@@ -192,9 +192,9 @@
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<true/>
+			<false/>
 			<key>allowsRotation</key>
-			<true/>
+			<false/>
 			<key>bodyShape</key>
 			<integer>0</integer>
 			<key>collisionCategories</key>
@@ -202,7 +202,7 @@
 			<key>collisionMask</key>
 			<array/>
 			<key>collisionType</key>
-			<string></string>
+			<string>hero</string>
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
@@ -221,14 +221,14 @@
 				</array>
 				<array>
 					<real>0.0</real>
-					<real>11</real>
+					<real>23</real>
 				</array>
 				<array>
-					<real>16</real>
-					<real>11</real>
+					<real>33</real>
+					<real>23</real>
 				</array>
 				<array>
-					<real>16</real>
+					<real>33</real>
 					<real>0.0</real>
 				</array>
 			</array>
@@ -236,16 +236,16 @@
 			<array>
 				<array>
 					<array>
-						<real>16</real>
+						<real>33</real>
 						<real>0.0</real>
 					</array>
 					<array>
-						<real>16</real>
-						<real>11</real>
+						<real>33</real>
+						<real>23</real>
 					</array>
 					<array>
 						<real>0.0</real>
-						<real>11</real>
+						<real>23</real>
 					</array>
 					<array>
 						<real>0.0</real>
@@ -410,7 +410,7 @@
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.60000002384185791</real>
+			<real>0.66666668653488159</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
