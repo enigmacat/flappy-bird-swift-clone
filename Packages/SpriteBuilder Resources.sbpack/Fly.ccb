@@ -192,9 +192,9 @@
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<false/>
+			<true/>
 			<key>allowsRotation</key>
-			<false/>
+			<true/>
 			<key>bodyShape</key>
 			<integer>0</integer>
 			<key>collisionCategories</key>

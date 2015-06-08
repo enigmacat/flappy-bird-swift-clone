@@ -15,11 +15,15 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     var _restartButton: CCButton!
     var _gameOver = false
     
+    var points:NSInteger = 0
+    var _scoreLabel:CCLabelTTF!
+    
     func didLoadFromCCB() {
+        _physicsNode.collisionDelegate = self
+
         self.userInteractionEnabled = true
         grounds.append(_ground1)
         grounds.append(_ground2)
-        _physicsNode.collisionDelegate = self
         
         self.spawnNewObstacle()
         self.spawnNewObstacle()
@@ -94,8 +98,15 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         obstacles.append(obstacle)
     }
     
-    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, hero nodeA: CCNode!, level nodeB: CCNode!) -> Bool {
+    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, hero: CCNode!, level: CCNode!) -> Bool {
         self.gameOver()
+        return true
+    }
+    
+    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, hero: CCNode!, goal: CCNode!) -> Bool {
+        goal.removeFromParent()
+        points++
+        _scoreLabel.string = String(points)
         return true
     }
     
