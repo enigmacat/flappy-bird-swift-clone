@@ -353,8 +353,6 @@
 		</array>
 		<key>selected</key>
 		<true/>
-		<key>seqExpanded</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
@@ -410,7 +408,7 @@
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.66666668653488159</real>
+			<real>0.3333333432674408</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>

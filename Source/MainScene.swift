@@ -12,12 +12,18 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     let firstObstaclePosition : CGFloat = 280
     let _distanceBetweenObstacles: CGFloat = 160
     var _obstaclesLayer: CCNode!
+    var _restartButton: CCButton!
+    var _gameOver = false
     
     func didLoadFromCCB() {
         self.userInteractionEnabled = true
         grounds.append(_ground1)
         grounds.append(_ground2)
         _physicsNode.collisionDelegate = self
+        
+        self.spawnNewObstacle()
+        self.spawnNewObstacle()
+        self.spawnNewObstacle()
         
     }
     
@@ -46,11 +52,11 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         _hero.rotation = clampf(_hero.rotation, -30,90)
         
         if (_hero.physicsBody.allowsRotation) {
-            let angularVelocity = clampf(Float(_hero.physicsBody.angularVelocity),2,-1)
+            let angularVelocity = clampf(Float(_hero.physicsBody.angularVelocity),-2,1)
             _hero.physicsBody.angularVelocity = CGFloat(angularVelocity)
         }
         if (sinceTouch > 0.5) {
-            let impulse  = -20000 * delta
+            let impulse  = -20000.0 * delta
             _hero.physicsBody.applyAngularImpulse(CGFloat(impulse))
         }
         
@@ -68,9 +74,11 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     }
     
     override func touchBegan(touch: CCTouch!, withEvent event:CCTouchEvent!) {
-        _hero.physicsBody.applyImpulse(ccp(0,400))
-        _hero.physicsBody.applyAngularImpulse(10000)
-        sinceTouch = 0
+            if(_gameOver == false) {
+            _hero.physicsBody.applyImpulse(ccp(0,400))
+            _hero.physicsBody.applyAngularImpulse(10000)
+            sinceTouch = 0
+        }
     }
     
     func spawnNewObstacle() {
@@ -87,7 +95,29 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     }
     
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, hero nodeA: CCNode!, level nodeB: CCNode!) -> Bool {
-        NSLog("Todo: handle game over")
+        self.gameOver()
         return true
+    }
+    
+    func restart() {
+        var scene = CCBReader.loadAsScene("MainScene")
+        CCDirector.sharedDirector().replaceScene(scene)
+    }
+    
+    func gameOver() {
+        if (_gameOver == false) {
+            _gameOver = true
+            _restartButton.visible = true
+            _scrollSpeed = 0
+            _hero.rotation = 90
+            _hero.physicsBody.allowsRotation = false
+            
+            _hero.stopAllActions()
+            
+            var move = CCActionEaseBounceOut(action:CCActionMoveBy(duration: 0.2, position:ccp(0,4)))
+            var moveBack = CCActionEaseBounceOut(action:move.reverse())
+            var shakeSequence = CCActionSequence(array: [move, moveBack])
+            self.runAction(shakeSequence)
+        }
     }
 }
